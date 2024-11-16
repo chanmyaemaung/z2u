@@ -65,6 +65,11 @@ h1 {
   padding: 0.25rem;
   background: var(--surface-secondary);
   border-radius: 0.75rem;
+  flex: 1;
+}
+
+.mode-selector:last-of-type {
+  flex: 100%;
 }
 
 .mode-selector button {
@@ -586,4 +591,67 @@ h1 {
   background: var(--accent);
   color: white;
   border-color: var(--accent);
+}
+
+.app-footer {
+  margin-top: 4rem;
+  padding: 2rem 0;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+
+.footer-content {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.developer {
+  font-size: 0.9375rem;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.developer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.developer a:hover {
+  color: var(--accent-hover);
+}
+
+.credits {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.credits a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.credits a:hover {
+  color: var(--text);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .app-footer {
+    margin-top: 3rem;
+    padding: 1.5rem 0;
+  }
+
+  .credits {
+    gap: 0.75rem;
+  }
 }
