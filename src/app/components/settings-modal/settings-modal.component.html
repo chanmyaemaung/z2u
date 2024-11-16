@@ -1,0 +1,49 @@
+<button class="settings-button" (click)="open()" title="Settings">
+  <i class="ph ph-gear"></i>
+</button>
+
+<div *ngIf="isOpen()" class="modal-backdrop" (click)="close()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ translate("settings") }}</h2>
+      <button class="close-button" (click)="close()">
+        <i class="ph ph-x"></i>
+      </button>
+    </div>
+
+    <div class="setting-group">
+      <h3>{{ translate("settings.theme") }}</h3>
+      <div class="theme-switch">
+        <button
+          [class.active]="theme() === 'light'"
+          (click)="setTheme('light')"
+        >
+          <i class="ph ph-sun"></i>
+          {{ translate("light") }}
+        </button>
+        <button [class.active]="theme() === 'dark'" (click)="setTheme('dark')">
+          <i class="ph ph-moon"></i>
+          {{ translate("dark") }}
+        </button>
+      </div>
+    </div>
+
+    <div class="setting-group">
+      <h3>{{ translate("language") }}</h3>
+      <div class="language-switch">
+        <button
+          [class.active]="language() === 'en'"
+          (click)="setLanguage('en')"
+        >
+          <span>🇺🇸</span> English
+        </button>
+        <button
+          [class.active]="language() === 'my'"
+          (click)="setLanguage('my')"
+        >
+          <span>🇲🇲</span> မြန်မာ
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

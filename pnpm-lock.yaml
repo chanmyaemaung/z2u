@@ -35,6 +35,9 @@ importers:
       '@ngx-translate/core':
         specifier: ^16.0.3
         version: 16.0.3(@angular/common@18.2.12(@angular/core@18.2.12(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.12(rxjs@7.8.1)(zone.js@0.14.10))
+      '@ngx-translate/http-loader':
+        specifier: ^16.0.0
+        version: 16.0.0(@angular/common@18.2.12(@angular/core@18.2.12(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.12(rxjs@7.8.1)(zone.js@0.14.10))
       rxjs:
         specifier: ~7.8.0
         version: 7.8.1
@@ -1333,6 +1336,12 @@ packages:
 
   '@ngx-translate/core@16.0.3':
     resolution: {integrity: sha512-UPse66z9tRUmIpeorYodXBQY6O4foUmj9jy9cCuuja7lqdOwRBWPzCWqc+qYIXv5L2QoqZdxgHtqoUz+Q9weSA==}
+    peerDependencies:
+      '@angular/common': '>=16'
+      '@angular/core': '>=16'
+
+  '@ngx-translate/http-loader@16.0.0':
+    resolution: {integrity: sha512-l3okOHGVxZ1Bm55OpakSfXvI2yYmVmhYqgwGU4aIQIRUqpkBCrSDZnmrHTcZfsGJzXKB5E2D2rko9i28gBijmA==}
     peerDependencies:
       '@angular/common': '>=16'
       '@angular/core': '>=16'
@@ -5791,6 +5800,12 @@ snapshots:
       webpack: 5.94.0(esbuild@0.23.0)
 
   '@ngx-translate/core@16.0.3(@angular/common@18.2.12(@angular/core@18.2.12(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.12(rxjs@7.8.1)(zone.js@0.14.10))':
+    dependencies:
+      '@angular/common': 18.2.12(@angular/core@18.2.12(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1)
+      '@angular/core': 18.2.12(rxjs@7.8.1)(zone.js@0.14.10)
+      tslib: 2.8.1
+
+  '@ngx-translate/http-loader@16.0.0(@angular/common@18.2.12(@angular/core@18.2.12(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.12(rxjs@7.8.1)(zone.js@0.14.10))':
     dependencies:
       '@angular/common': 18.2.12(@angular/core@18.2.12(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1)
       '@angular/core': 18.2.12(rxjs@7.8.1)(zone.js@0.14.10)

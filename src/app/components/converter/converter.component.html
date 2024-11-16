@@ -1,7 +1,8 @@
 <div class="container">
   <header class="app-header">
-    <h1>Font Converter</h1>
-    <p class="subtitle">Convert between Zawgyi and Unicode with ease</p>
+    <h1>{{ translate("converter.title") }}</h1>
+    <p class="subtitle">{{ translate("converter.subtitle") }}</p>
+    <app-settings-modal />
   </header>
 
   <div class="converter">
@@ -9,45 +10,49 @@
       <div class="section-header">
         <div class="mode-selector">
           <button [class.active]="mode() === 'auto'" (click)="setMode('auto')">
-            Auto
+            {{ translate("converter.mode.auto") }}
           </button>
           <button
             [class.active]="mode() === 'zawgyi'"
             (click)="setMode('zawgyi')"
           >
-            Zawgyi
+            {{ translate("converter.mode.zawgyi") }}
           </button>
           <button
             [class.active]="mode() === 'unicode'"
             (click)="setMode('unicode')"
           >
-            Unicode
+            {{ translate("converter.mode.unicode") }}
           </button>
         </div>
 
         <div class="action-buttons">
-          <button
-            class="icon-button"
-            (click)="pasteFromClipboard()"
-            title="Paste from clipboard"
-          >
-            <i class="ph ph-clipboard-text"></i>
-          </button>
-          <button
-            class="icon-button"
-            (click)="clearText()"
-            [class.visible]="inputText().length > 0"
-            title="Clear text"
-          >
-            <i class="ph ph-x-circle"></i>
-          </button>
+          <ng-container *ngIf="!inputText()">
+            <button
+              class="icon-button"
+              (click)="pasteFromClipboard()"
+              [title]="translate('converter.paste')"
+            >
+              <i class="ph ph-clipboard-text"></i>
+            </button>
+          </ng-container>
+
+          <ng-container *ngIf="inputText()">
+            <button
+              class="icon-button"
+              (click)="clearText()"
+              [title]="translate('converter.clear')"
+            >
+              <i class="ph ph-x"></i>
+            </button>
+          </ng-container>
         </div>
       </div>
 
       <textarea
         [value]="inputText()"
-        (input)="updateInput($any($event.target).value)"
-        placeholder="Enter Zawgyi or Unicode text here"
+        (input)="updateInput($event)"
+        [placeholder]="translate('converter.input.placeholder')"
         [class]="mode()"
       ></textarea>
     </div>
@@ -59,13 +64,13 @@
             [class.active]="outputMode() === 'zawgyi'"
             (click)="setOutputMode('zawgyi')"
           >
-            Zawgyi
+            {{ translate("converter.mode.zawgyi") }}
           </button>
           <button
             [class.active]="outputMode() === 'unicode'"
             (click)="setOutputMode('unicode')"
           >
-            Unicode
+            {{ translate("converter.mode.unicode") }}
           </button>
         </div>
 
@@ -73,6 +78,7 @@
           class="icon-button"
           (click)="copyToClipboard(outputText())"
           title="Copy to clipboard"
+          *ngIf="outputText()"
         >
           <i class="ph ph-copy"></i>
         </button>
@@ -82,7 +88,7 @@
         [value]="outputText()"
         readonly
         [class]="outputMode()"
-        placeholder="Converted text will appear here"
+        placeholder="{{ translate('converter.output.placeholder') }}"
       ></textarea>
     </div>
   </div>

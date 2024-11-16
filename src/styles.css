@@ -42,3 +42,41 @@
   font-family: "Pyidaungsu";
   src: url("/assets/fonts/Pyidaungsu.ttf") format("truetype");
 }
+
+:root {
+  /* Light theme */
+  --background: #ffffff;
+  --surface: #f5f5f7;
+  --surface-secondary: #e5e5e7;
+  --text: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --border: #d2d2d7;
+  --accent: #0071e3;
+  --accent-hover: #0077ed;
+  --hover: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] {
+  /* Dark theme */
+  --background: #000000;
+  --surface: #1c1c1e;
+  --surface-secondary: #2c2c2e;
+  --text: #f5f5f7;
+  --text-secondary: #86868b;
+  --border: #3a3a3c;
+  --accent: #0a84ff;
+  --accent-hover: #0a8cff;
+  --hover: rgba(255, 255, 255, 0.1);
+}
+
+body {
+  background-color: var(--surface);
+  color: var(--text);
+}
+
+[data-lang="my"] h1,
+[data-lang="my"] .subtitle,
+[data-lang="my"] button,
+[data-lang="my"] .mode-selector button {
+  font-family: var(--font-myanmar);
+}

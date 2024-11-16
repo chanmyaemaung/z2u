@@ -1,6 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, effect, signal } from '@angular/core';
+import {
+  Language,
+  TranslateModule,
+  TranslateService,
+} from '@ngx-translate/core';
 import { unicodeToZawgyiRules, zawgyiToUnicodeRules } from '../../font';
+import { LanguageService } from '../../services/language.service';
+import { TranslationService } from '../../services/translation.service';
+import { SettingsModalComponent } from '../settings-modal/settings-modal.component';
 
 type Mode = 'auto' | 'zawgyi' | 'unicode';
 type Font = 'zawgyi' | 'unicode';
@@ -8,7 +16,7 @@ type Font = 'zawgyi' | 'unicode';
 @Component({
   selector: 'app-converter',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule, SettingsModalComponent],
   templateUrl: './converter.component.html',
   styleUrls: ['./converter.component.css'],
 })
@@ -16,8 +24,40 @@ export class ConverterComponent {
   mode = signal<Mode>('auto');
   outputMode = signal<Font>('unicode');
   inputText = signal('');
+  currentLanguage = signal<Language>('en');
 
-  constructor() {
+  convertedText = computed(() => {
+    const input = this.inputText();
+    if (!input) return '';
+
+    const mode = this.mode();
+    const outputMode = this.outputMode();
+
+    if (mode === 'auto') {
+      if (this.containsMyanmarText(input)) {
+        const detectedFont = this.detectFont(input);
+        return this.convert(input, detectedFont, outputMode);
+      }
+      return input;
+    }
+
+    return this.convert(input, mode as Font, outputMode);
+  });
+
+  constructor(
+    private translateService: TranslateService,
+    private languageService: LanguageService,
+    private translationService: TranslationService
+  ) {
+    this.embedFonts();
+
+    // Subscribe to language changes
+    this.languageService.getLanguage().subscribe((lang) => {
+      this.currentLanguage.set(lang);
+      // Force re-render of translations
+      this.forceUpdate();
+    });
+
     // Watch for input changes and detect font
     effect(() => {
       const text = this.inputText();
@@ -37,37 +77,47 @@ export class ConverterComponent {
   }
 
   private detectFont(text: string): Font {
-    // Improved Zawgyi detection with more specific patterns
+    // Improved Zawgyi detection using common patterns
     const zawgyiPatterns = [
-      '\u103b[\u1000-\u1021]\u103c', // Zawgyi specific medial combinations
-      '\u1031\u103b', // Zawgyi specific vowel order
-      '[\u1040-\u1049][\u102b-\u103f]', // Zawgyi specific digit combinations
-      '\u1031[\u103b\u107e-\u1084]', // Zawgyi specific combinations
-      '[\u1064-\u1097]', // Zawgyi specific characters
+      '\u1031\u103b', // Zawgyi specific combination
+      '\u1031\u103c',
+      '[\u1022-\u1030\u1032-\u1039\u103b-\u103d]\u1039',
+      '\u1039[^\u1000-\u1021]',
+      '\u104e\u1004\u103a\u1038',
+      '[\u1090-\u1099]',
+      '\u1086',
+      '\u1039\u1010\u103d',
+      '\u1039\u1000-\u1021',
     ];
 
-    // Join patterns with OR operator
     const zawgyiRegex = new RegExp(zawgyiPatterns.join('|'));
-
-    // If any Zawgyi pattern matches, consider it Zawgyi
     return zawgyiRegex.test(text) ? 'zawgyi' : 'unicode';
   }
 
-  updateInput(value: string): void {
-    this.inputText.set(value);
+  updateInput(value: string | Event) {
+    let text: string;
 
-    // If in auto mode, detect font immediately
-    if (this.mode() === 'auto' && this.containsMyanmarText(value)) {
-      const detectedFont = this.detectFont(value);
-      this.mode.set(detectedFont);
+    if (typeof value === 'string') {
+      text = value;
+    } else {
+      const target = value.target as HTMLTextAreaElement;
+      text = target.value;
+    }
+
+    this.inputText.set(text);
+
+    // Auto detect font if in auto mode
+    if (this.mode() === 'auto' && text) {
+      if (this.containsMyanmarText(text)) {
+        const detectedFont = this.detectFont(text);
+        this.mode.set(detectedFont);
+      }
     }
   }
 
-  clearText(): void {
+  clearText() {
     this.inputText.set('');
-    if (this.mode() !== 'auto') {
-      this.mode.set('auto');
-    }
+    this.mode.set('auto');
   }
 
   outputText = computed(() => {
@@ -117,12 +167,88 @@ export class ConverterComponent {
     }
   }
 
-  async pasteFromClipboard(): Promise<void> {
+  async pasteFromClipboard() {
     try {
       const text = await navigator.clipboard.readText();
-      this.updateInput(text);
+      if (text && this.containsMyanmarText(text)) {
+        const detectedFont = this.detectFont(text);
+
+        // Set the input text
+        this.inputText.set(text);
+
+        // Update the input mode to match detected font
+        this.mode.set(detectedFont);
+
+        // Set output mode to opposite
+        this.outputMode.set(detectedFont === 'zawgyi' ? 'unicode' : 'zawgyi');
+
+        // Immediately update textarea font
+        requestAnimationFrame(() => {
+          this.updateTextareaFonts();
+        });
+      } else {
+        this.inputText.set(text);
+      }
     } catch (err) {
       console.error('Failed to read clipboard:', err);
     }
+  }
+
+  private updateTextareaFonts() {
+    // Update input textarea
+    const inputTextarea = document.querySelector('.input-section textarea');
+    if (inputTextarea) {
+      inputTextarea.classList.remove('zawgyi', 'unicode');
+      inputTextarea.classList.add(this.mode());
+    }
+
+    // Update output textarea
+    const outputTextarea = document.querySelector('.output-section textarea');
+    if (outputTextarea) {
+      outputTextarea.classList.remove('zawgyi', 'unicode');
+      outputTextarea.classList.add(this.outputMode());
+    }
+  }
+
+  translate(key: string): string {
+    return this.translationService.translate(key);
+  }
+
+  private forceUpdate() {
+    // Trigger change detection
+    this.mode.set(this.mode());
+  }
+
+  private embedFonts() {
+    const style = document.createElement('style');
+    style.textContent = `
+      @font-face {
+        font-family: 'Zawgyi-One';
+        src: url('/assets/fonts/ZawgyiOne.woff2') format('woff2'),
+             url('/assets/fonts/ZawgyiOne.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'Myanmar3';
+        src: url('/assets/fonts/Myanmar3.woff2') format('woff2'),
+             url('/assets/fonts/Myanmar3.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'Pyidaungsu';
+        src: url('/assets/fonts/Pyidaungsu.woff2') format('woff2'),
+             url('/assets/fonts/Pyidaungsu.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+    `;
+    document.head.appendChild(style);
   }
 }
