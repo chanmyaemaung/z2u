@@ -370,24 +370,44 @@ textarea::placeholder {
   height: 36px;
   border: none;
   border-radius: 0.5rem;
-  background: transparent;
-  color: var(--text);
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  background: var(--surface-secondary);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  opacity: 0.8;
 }
 
 .icon-button:hover {
-  background: var(--surface-hover);
+  opacity: 1;
+  background: var(--hover);
 }
 
+.icon-button i {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* Dark mode adjustments */
 [data-theme="dark"] .icon-button {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--surface);
+  color: var(--text-secondary);
 }
 
 [data-theme="dark"] .icon-button:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--surface-secondary);
+  color: var(--text);
+}
+
+[data-theme="dark"] .icon-button.clear {
+  color: #ff453a;
+}
+
+[data-theme="dark"] .icon-button:active {
+  background: var(--surface-secondary);
+  transform: scale(0.97);
 }
 
 .icon-button.clear {

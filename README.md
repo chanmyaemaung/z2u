@@ -1,27 +1,59 @@
-# Z2u
+# Zawgyi Unicode Converter
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.1.
+A modern, elegant converter for Myanmar text between Zawgyi and Unicode encodings. Built with Angular 18 (latest) and designed following Apple's Human Interface Guidelines.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- 🔄 Real-time conversion between Zawgyi and Unicode
+- 🎯 Auto-detection of input font
+- 🌓 Dark/Light mode support
+- 📱 Responsive design
+- ⌨️ Keyboard shortcuts
+- 📋 Copy/Paste functionality
 
-## Code scaffolding
+## Live Demo
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+[Try the converter](https://z2u.vercel.app)
 
-## Build
+## Technology
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Built with:
 
-## Running unit tests
+- Angular 18 (latest)
+- TypeScript
+- ngx-translate
+- Phosphor Icons
+- Apple SF Pro Display font
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Development
 
-## Running end-to-end tests
+```bash
+# Install dependencies
+npm install
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+# Start development server
+npm start
+```
 
-## Further help
+Visit `http://localhost:4200` to see the app.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Building
+
+```bash
+# Production build
+npm run build
+```
+
+## Credits
+
+Developed by [Chan Lay](https://linkedin.com/in/chanlay)
+
+Special thanks to:
+
+- [Rabbit Converter](https://github.com/Rabbit-Converter/Rabbit) for conversion rules
+- [ngx-translate](https://github.com/ngx-translate/core) for i18n support
+- [Phosphor Icons](https://phosphoricons.com) for beautiful icons
+
+## License
+
+MIT License

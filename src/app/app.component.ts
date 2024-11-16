@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { environment } from '../environments/environment';
 import { ConverterComponent } from './components/converter/converter.component';
 
 @Component({
@@ -10,5 +11,5 @@ import { ConverterComponent } from './components/converter/converter.component';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'z2u';
+  ogImageUrl = `${environment.baseUrl}/assets/og-image.png`;
 }
