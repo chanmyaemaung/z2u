@@ -5,31 +5,31 @@
 <div *ngIf="isOpen()" class="modal-backdrop" (click)="close()">
   <div class="modal-content" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h2>{{ translate("settings") }}</h2>
+      <h2>{{ translate(KEYS.SETTINGS_TITLE) }}</h2>
       <button class="close-button" (click)="close()">
         <i class="ph ph-x"></i>
       </button>
     </div>
 
     <div class="setting-group">
-      <h3>{{ translate("settings.theme") }}</h3>
+      <h3>{{ translate(KEYS.SETTINGS_THEME) }}</h3>
       <div class="theme-switch">
         <button
           [class.active]="theme() === 'light'"
           (click)="setTheme('light')"
         >
           <i class="ph ph-sun"></i>
-          {{ translate("light") }}
+          {{ translate(KEYS.LIGHT) }}
         </button>
         <button [class.active]="theme() === 'dark'" (click)="setTheme('dark')">
           <i class="ph ph-moon"></i>
-          {{ translate("dark") }}
+          {{ translate(KEYS.DARK) }}
         </button>
       </div>
     </div>
 
     <div class="setting-group">
-      <h3>{{ translate("language") }}</h3>
+      <h3>{{ translate(KEYS.SETTINGS_LANGUAGE) }}</h3>
       <div class="language-switch">
         <button
           [class.active]="language() === 'en'"

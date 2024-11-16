@@ -1,11 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, inject, signal } from '@angular/core';
+import { TranslationKey } from '@core/i18n/types/translation.types';
 import { Language, LanguageService } from '../../services/language.service';
 import { Theme, ThemeService } from '../../services/theme.service';
-import {
-  TranslationService,
-  Translations,
-} from '../../services/translation.service';
+import { TranslationService } from '../../services/translation.service';
 
 @Component({
   selector: 'app-settings-modal',
@@ -18,6 +16,14 @@ export class SettingsModalComponent {
   private themeService = inject(ThemeService);
   private languageService = inject(LanguageService);
   private translationService = inject(TranslationService);
+
+  readonly KEYS = {
+    SETTINGS_TITLE: 'settings.title' as TranslationKey,
+    SETTINGS_THEME: 'settings.theme' as TranslationKey,
+    SETTINGS_LANGUAGE: 'settings.language' as TranslationKey,
+    LIGHT: 'light' as TranslationKey,
+    DARK: 'dark' as TranslationKey,
+  };
 
   theme = signal<Theme>('light');
   language = signal<Language>(this.languageService.getCurrentLanguage());
@@ -62,7 +68,7 @@ export class SettingsModalComponent {
     }
   }
 
-  translate(key: keyof Translations): string {
+  translate(key: TranslationKey): string {
     return this.translationService.translate(key);
   }
 }

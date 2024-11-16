@@ -9,17 +9,17 @@
     <div class="input-section">
       <div class="section-header">
         <div class="mode-selector">
-          <button [class.active]="mode() === 'auto'" (click)="setMode('auto')">
+          <button [class]="getAutoButtonClass()" (click)="setMode('auto')">
             {{ translate("converter.mode.auto") }}
           </button>
           <button
-            [class.active]="mode() === 'zawgyi'"
+            [class]="getButtonClass('zawgyi')"
             (click)="setMode('zawgyi')"
           >
             {{ translate("converter.mode.zawgyi") }}
           </button>
           <button
-            [class.active]="mode() === 'unicode'"
+            [class]="getButtonClass('unicode')"
             (click)="setMode('unicode')"
           >
             {{ translate("converter.mode.unicode") }}
@@ -53,7 +53,7 @@
         [value]="inputText()"
         (input)="updateInput($event)"
         [placeholder]="translate('converter.input.placeholder')"
-        [class]="mode()"
+        [class]="inputMode()"
       ></textarea>
     </div>
 
@@ -95,6 +95,8 @@
 
   <footer class="app-footer">
     <div class="footer-content">
+      <p class="copyright">© {{ currentYear }} Zawgyi Unicode Converter</p>
+
       <p class="developer">
         Developed by
         <a
@@ -106,6 +108,7 @@
         </a>
       </p>
 
+      <p class="special-thanks">Special thanks to:</p>
       <ul class="credits">
         <li>
           <a
@@ -134,3 +137,5 @@
     </div>
   </footer>
 </div>
+
+<app-toast />

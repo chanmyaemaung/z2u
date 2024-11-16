@@ -2,6 +2,8 @@
 
 A modern, elegant converter for Myanmar text between Zawgyi and Unicode encodings. Built with Angular 18 (latest) and designed following Apple's Human Interface Guidelines.
 
+![Z2U Converter Demo](https://z2u.vercel.app/assets/images/og-image.png)
+
 ## Features
 
 - 🔄 Real-time conversion between Zawgyi and Unicode

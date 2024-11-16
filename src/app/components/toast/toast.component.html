@@ -1,0 +1,15 @@
+<div class="toast-container" [class.visible]="isVisible()">
+  <div class="toast" [class]="toastService.toast()?.type || 'info'">
+    <span class="icon" *ngIf="toastService.toast()?.type">
+      <i class="ph" [class]="getIconClass()"></i>
+    </span>
+    <span class="message">{{ toastService.toast()?.message }}</span>
+    <button
+      class="action-button"
+      *ngIf="toastService.toast()?.action"
+      (click)="toastService.toast()?.action?.onClick()"
+    >
+      {{ toastService.toast()?.action?.label }}
+    </button>
+  </div>
+</div>
