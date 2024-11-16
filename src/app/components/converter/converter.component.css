@@ -1,0 +1,404 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+h1 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #1d1d1f;
+  text-align: center;
+  margin: 2rem 0;
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mode-selector {
+  display: flex;
+  gap: 0.375rem;
+  background: #f5f5f7;
+  padding: 0.25rem;
+  border-radius: 0.75rem;
+}
+
+button {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #1d1d1f;
+  background: transparent;
+  border: none;
+  border-radius: 0.625rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+}
+
+button.active {
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.clear-button {
+  opacity: 0;
+  pointer-events: none;
+  background: #f5f5f7;
+  transition: opacity 0.2s ease;
+}
+
+.clear-button.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.clear-button:hover {
+  background: #e5e5e7;
+}
+
+.converter {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  background: #f5f5f7;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.input-section,
+.output-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: #ffffff;
+  border-radius: 0.875rem;
+  padding: 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+textarea {
+  flex: 1;
+  min-height: 250px;
+  padding: 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #1d1d1f;
+  background: #ffffff;
+  border: 1px solid #d2d2d7;
+  border-radius: 0.75rem;
+  resize: none;
+  transition: all 0.2s ease;
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #0071e3;
+  box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+}
+
+textarea::placeholder {
+  color: #86868b;
+}
+
+textarea.zawgyi {
+  font-family: Zawgyi-One, Myanmar3, sans-serif;
+}
+
+textarea.unicode {
+  font-family: Pyidaungsu, Myanmar3, sans-serif;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0.75rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .converter {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  textarea {
+    min-height: 200px;
+  }
+
+  button {
+    padding: 0.375rem 0.625rem;
+    font-size: 0.8125rem;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.copy-button {
+  padding: 0.5rem 1rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.copy-button:hover {
+  background: #0056b3;
+}
+
+/* Font embedding */
+@font-face {
+  font-family: "Zawgyi-One";
+  src: url("/assets/fonts/ZawgyiOne.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Myanmar3";
+  src: url("/assets/fonts/Myanmar3.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Pyidaungsu";
+  src: url("/assets/fonts/Pyidaungsu.ttf") format("truetype");
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .container {
+    background: #000000;
+  }
+
+  h1 {
+    color: #f5f5f7;
+  }
+
+  .converter {
+    background: #1c1c1e;
+  }
+
+  .input-section,
+  .output-section {
+    background: #2c2c2e;
+  }
+
+  .mode-selector {
+    background: #3a3a3c;
+  }
+
+  button {
+    color: #f5f5f7;
+  }
+
+  button.active {
+    background: #3a3a3c;
+  }
+
+  textarea {
+    color: #f5f5f7;
+    background: #2c2c2e;
+    border-color: #3a3a3c;
+  }
+
+  textarea:focus {
+    border-color: #0071e3;
+  }
+
+  textarea::placeholder {
+    color: #86868b;
+  }
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: #f5f5f7;
+  color: #1d1d1f;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+.icon-button:hover {
+  background: #e5e5e7;
+}
+
+.icon-button:active {
+  background: #d5d5d7;
+  transform: scale(0.97);
+}
+
+.icon-button i {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.icon-button.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.icon-button.clear {
+  color: #ff3b30;
+}
+
+/* Mobile improvements */
+@media (max-width: 768px) {
+  .container {
+    padding: 0.75rem;
+  }
+
+  .converter {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    max-height: calc(100vh - 8rem);
+    overflow: hidden;
+  }
+
+  .input-section,
+  .output-section {
+    max-height: calc(50vh - 6rem);
+    overflow: hidden;
+  }
+
+  textarea {
+    min-height: 150px;
+    max-height: calc(50vh - 10rem);
+  }
+
+  .section-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .mode-selector {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .icon-button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .icon-button i {
+    font-size: 18px;
+  }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .icon-button {
+    background: rgba(255, 255, 255, 0.1);
+    color: #f5f5f7;
+  }
+
+  .icon-button:hover {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .icon-button:active {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Header styles */
+.app-header {
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 2.75rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #1d1d1f;
+  margin: 0;
+  padding: 0;
+  line-height: 1.1;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI",
+    Roboto, sans-serif;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  line-height: 1.4;
+  color: #6e6e73;
+  margin: 0.75rem 0 0;
+  font-weight: 400;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+    Roboto, sans-serif;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  h1 {
+    color: #f5f5f7;
+  }
+
+  .subtitle {
+    color: #86868b;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 2rem 1rem 1.5rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1.125rem;
+    margin-top: 0.5rem;
+  }
+}
+
+/* iPad and smaller laptops */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .app-header {
+    padding: 2.5rem 1rem 2rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+}
