@@ -232,12 +232,12 @@ textarea:focus {
 }
 
 /* Font styles */
-textarea.zawgyi {
-  font-family: Zawgyi-One, sans-serif !important;
+.zawgyi {
+  font-family: "Noto Zawgyi", fallback-font, sans-serif;
 }
 
-textarea.unicode {
-  font-family: "Myanmar Text", "Pyidaungsu", "Myanmar3", sans-serif !important;
+.unicode {
+  font-family: "Noto Sans Myanmar", fallback-font, sans-serif;
 }
 
 /* Mobile responsive */
@@ -319,18 +319,19 @@ textarea::placeholder {
 
 /* Font embedding */
 @font-face {
-  font-family: "Zawgyi-One";
-  src: url("/assets/fonts/ZawgyiOne.ttf") format("truetype");
+  font-family: "Noto Sans Myanmar";
+  src: url("/assets/fonts/NotoSansMyanmar-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: "Myanmar3";
-  src: url("/assets/fonts/Myanmar3.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Pyidaungsu";
-  src: url("/assets/fonts/Pyidaungsu.ttf") format("truetype");
+  font-family: "Noto Zawgyi";
+  src: url("/assets/fonts/NotoZawgyi-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* Dark mode support */
@@ -768,4 +769,35 @@ textarea[readonly]:focus {
 [data-theme="dark"] textarea[readonly]:hover {
   background: var(--surface);
   border-color: var(--border);
+}
+
+/* Ensure font settings are not overridden */
+.output-section textarea {
+  font-family: inherit !important;
+}
+
+.unicode-font {
+  font-family: "Noto Sans Myanmar", fallback-font, sans-serif;
+}
+
+.zawgyi-font {
+  font-family: "Noto Zawgyi", fallback-font, sans-serif;
+}
+
+.textarea-input,
+.textarea-output {
+  width: 100%;
+  min-height: 200px;
+  padding: 1rem;
+  border-radius: 8px;
+  resize: vertical;
+}
+
+.zawgyi-font {
+  font-family: "Zawgyi-One", "Noto Zawgyi", fallback-font, sans-serif;
+}
+
+.unicode-font {
+  font-family: "Myanmar3", "Noto Sans Myanmar", "Pyidaungsu", fallback-font,
+    sans-serif;
 }

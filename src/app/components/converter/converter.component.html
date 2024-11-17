@@ -53,7 +53,7 @@
         [value]="inputText()"
         (input)="updateInput($event)"
         [placeholder]="translate('converter.input.placeholder')"
-        [class]="inputMode()"
+        [class]="getInputFontClass()"
       ></textarea>
     </div>
 
@@ -87,8 +87,8 @@
       <textarea
         [value]="outputText()"
         readonly
-        [class]="outputMode()"
-        placeholder="{{ translate('converter.output.placeholder') }}"
+        [placeholder]="translate('converter.output.placeholder')"
+        [class]="getOutputFontClass()"
       ></textarea>
     </div>
   </div>

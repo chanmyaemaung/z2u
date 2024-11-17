@@ -29,18 +29,17 @@
 
 /* Font embedding for Myanmar fonts */
 @font-face {
-  font-family: "Zawgyi-One";
-  src: url("/assets/fonts/ZawgyiOne.ttf") format("truetype");
+  font-family: "Noto Sans Zawgyi";
+  src: url("/assets/fonts/NotoZawgyi-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-  font-family: "Myanmar3";
-  src: url("/assets/fonts/Myanmar3.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Pyidaungsu";
-  src: url("/assets/fonts/Pyidaungsu.ttf") format("truetype");
+  font-family: "Noto Sans Myanmar";
+  src: url("/assets/fonts/NotoSansMyanmar-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 :root {
